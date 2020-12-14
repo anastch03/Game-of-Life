@@ -1,4 +1,4 @@
-# GameofLife
+# Game of Life
 This is an implementation of the simulation of John Conway's game of life.
 
 Rules of game of life (from Wikipedia):
