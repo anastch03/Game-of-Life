@@ -97,9 +97,10 @@ int check(int width, int height)
   {
     for (int w = width - 1; w <= width + 1; w++)
     {
-      //if cell is alive 
+      //if cell is a surrounding cell and is alive 
       if (h != height && w != width && cell[h][w] == 79)
         alive++;//update alive count
+
       //if alive count is greater than 3
       if (alive > 3)
         return 1; //cell dies
@@ -108,9 +109,8 @@ int check(int width, int height)
         return 1; //cell dies
       else if (alive == 3)
         return 0; //cell is born
-      else 
-        return 2; //cell remains as is
     }
   } 
+  return 2;
 }
 
