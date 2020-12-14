@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 
 void update_world(void);
+void print_world(void);
 int check(int width, int height);
 
 //create a 50 by 20 array which would be the "world"
@@ -27,6 +30,22 @@ int main(void) {
   cell[49][19] = 'O';
 
   //print current world
+  print_world();
+  sleep(2);
+
+  //outer loop for iteration of each cycle
+  for (int i = 0; i < 30; i++)
+  {
+    update_world();
+    print_world();
+    sleep(3);
+    printf("\033[2J"); //clear terminal
+  }
+}
+
+//prints out the world onto terminal
+void print_world(void)
+{
   for (int column = 0; column < 20; column++)
   {
     for (int row = 0; row < 50; row++)
@@ -37,45 +56,48 @@ int main(void) {
     }
   }
   printf("\n");
-
-  //outer loop for iteration of each cycle
-    //update_world();
-    //clear terminal
-    //wait 0.5 second
-    //print out array
 }
 
-/*
+//update world
 void update_world(void)
 {
-  //traverse array
-  for (int i = 0; i < 10; i++)
+  //traverse world
+  for (int i = 0; i < 50; i++)
   {
-    for (int j = 0; j < 10; j++)
+    for (int j = 0; j < 20; j++)
     {
       if(check(i,j) == 1)
         cell[i][j] = '-'; //cell dies
       else if (check(i,j) == 0)
         cell[i][j] = 'O'; //cell is born
     }
-    
-  }
-      
+  } 
 }
 
+//check if cell should die, be born, or stay dead or alive
 int check(int width, int height)
 {
-  int alive;
-  //traverse surrounding cells
-    //if cell is alive 
-      alive++;//update alive count
+  int alive = 0;
 
-    //if alive count is greater than 3
+  //traverse surrounding cells
+  for (int h = height - 1; h <= height + 1; h++)
+  {
+    for (int w = width - 1; w <= width + 1; w++)
+    {
+      //if cell is alive 
+      if (h != height && w != width && cell[h][w]==79)
+        alive++;//update alive count
+      //if alive count is greater than 3
       if (alive > 3)
         return 1; //cell dies
-    //else if alive count is fewer than 2
-
-    //reset alive count to 0
-    alive = 0;
+      //else if alive count is fewer than 2
+      else if (alive < 2)
+        return 1; //cell dies
+      else if (alive == 3)
+        return 0; //cell is born
+      else 
+        return 2; //cell remains as is
+    }
+  } 
 }
-*/
+
