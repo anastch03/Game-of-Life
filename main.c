@@ -3,15 +3,15 @@
 void update_world(void);
 int check(int width, int height);
 
-//create a 50 by 50 array which would be the "world"
-char cell[50][50]; 
+//create a 50 by 20 array which would be the "world"
+char cell[50][20]; 
 
 int main(void) {
   
   //initialize array to "-"s (dead)
   for (int i = 0; i < 50; i++)
   {
-    for (int j = 0; j < 50; j++)
+    for (int j = 0; j < 20; j++)
     {
       cell[i][j] = '-';
     }
@@ -20,22 +20,23 @@ int main(void) {
   cell[2][1] = 'O';
   cell[9][0] = 'O';
   cell[0][0] = 'O';
-  cell[9][1] = 'O';
-  cell[3][3] = 'O';
+  cell[9][9] = 'O';
+  cell[13][3] = 'O';
   cell[10][8] = 'O';
-  cell[50][46] = 'O';
-  cell[10][19] = 'O';
+  cell[40][12] = 'O';
+  cell[49][19] = 'O';
 
   //print current world
-  for (int row = 0; row < 50; row++)
+  for (int column = 0; column < 20; column++)
   {
-    for (int column = 0; column < 50; column++)
+    for (int row = 0; row < 50; row++)
     {
-      if (column % 50 == 0)
+      if (row % 50 == 0)
         printf("\n");
       printf("%c", cell[row][column]);
     }
   }
+  printf("\n");
 
   //outer loop for iteration of each cycle
     //update_world();
@@ -44,6 +45,7 @@ int main(void) {
     //print out array
 }
 
+/*
 void update_world(void)
 {
   //traverse array
@@ -75,6 +77,5 @@ int check(int width, int height)
 
     //reset alive count to 0
     alive = 0;
-    
 }
-
+*/
