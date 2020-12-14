@@ -30,15 +30,13 @@ int main(void) {
   cell[40][12] = 'O';
   cell[49][19] = 'O';
 
-  //print original world
-  print_world(0);
-  sleep(1);
-  printf("\033[2J\033[H"); //clear terminal
-
   //outer loop for iteration of each cycle
   for (int i = 0; i < 30; i++) //goes for 30 generations
   {
-    print_world(1);
+    if (i == 0)
+      print_world(0);
+    else
+      print_world(1);
     update_world();
     //rewrite old cell to be new cell before the new cell updates
     for (int i = 0; i < 50; i++)
@@ -80,7 +78,7 @@ void update_world(void)
   {
     for (int j = 0; j < 20; j++)
     {
-      if(check(i,j) == 1)
+      if (check(i, j) == 1)
         new_cell[i][j] = '-'; //cell dies
       else if (check(i,j) == 0)
         new_cell[i][j] = 'O'; //cell is born
@@ -98,7 +96,7 @@ int check(int width, int height)
     for (int w = width - 1; w <= width + 1; w++)
     {
       //if cell is a surrounding cell and is alive 
-      if (h != height && w != width && cell[h][w] == 79)
+      if ((h != height && h > 0) && (w != width && w > 0) && cell[h][w] == 79)
         alive++;//update alive count
 
       //if alive count is greater than 3
