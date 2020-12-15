@@ -22,7 +22,7 @@ int main(void) {
     }
   }
   
-  //put some life into the world (O)
+  //initialize configuration ie. put some life into the world 
   cell[0][1] = 'O';
   cell[9][0] = 'O';
   cell[0][0] = 'O';
@@ -36,9 +36,9 @@ int main(void) {
   for (int i = 0; i < 30; i++) //goes for 30 generations
   {
     if (i == 0)
-      print_world(0);
+      print_world(0); //initial configuration
     else
-      print_world(1);
+      print_world(1); //updated configuration
     update_world();
     //write new cell into old cell before the new cell updates
     for (int i = 0; i < 50; i++)
@@ -54,7 +54,7 @@ int main(void) {
   return 0;
 }
 
-//prints out the world onto terminal
+//print out the world onto terminal
 void print_world(int i)
 {
   for (int column = 0; column < 20; column++)
@@ -94,6 +94,7 @@ void update_world(void)
 int check(int width, int height)
 {
   int alive = 0;
+
   //traverse surrounding cells
   for (int h = height - 1; h <= height + 1; h++)
   {
@@ -101,19 +102,17 @@ int check(int width, int height)
     {
       //if cell is a surrounding cell and is alive 
       if ((h != height && h > 0 && h < 50) && (w != width && w > 0 && w < 20) && cell[h][w]== 79)
-        alive++;//update alive count
-        
-      
-      //if alive count is greater than 3
-      if (alive > 3)
-        return 1; //cell dies
-      //else if alive count is fewer than 2
-      else if (alive < 2)
-        return 1; //cell dies
-      else //alive count is equal to 3
-        return 0; //cell is born
+        alive++;//increment alive count
     }
   } 
+
+  //check conditions to determine cell
+  if (alive > 3)
+    return 1; //cell dies
+  else if (alive < 2)
+    return 1; //cell dies
+  else //if alive count is equal to 3
+    return 0; //cell is born
   return 2;
 }
 
