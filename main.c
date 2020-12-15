@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
 
 void update_world(void);
 void print_world(int i);
@@ -20,12 +21,13 @@ int main(void) {
       cell[i][j] = '-';
     }
   }
+  
   //put some life into the world (O)
-  cell[2][1] = 'O';
+  cell[0][1] = 'O';
   cell[9][0] = 'O';
   cell[0][0] = 'O';
   cell[9][9] = 'O';
-  cell[13][3] = 'O';
+  cell[1][2] = 'O';
   cell[10][8] = 'O';
   cell[40][12] = 'O';
   cell[49][19] = 'O';
@@ -38,7 +40,7 @@ int main(void) {
     else
       print_world(1);
     update_world();
-    //rewrite old cell to be new cell before the new cell updates
+    //write new cell into old cell before the new cell updates
     for (int i = 0; i < 50; i++)
     {
       for (int j = 0; j < 20; j++)
@@ -46,7 +48,7 @@ int main(void) {
         cell[i][j] = new_cell[i][j];
       }
     }
-    sleep(1);
+    usleep(500000);
     printf("\033[2J\033[H"); //clear terminal 
   }
   return 0;
@@ -81,7 +83,9 @@ void update_world(void)
       if (check(i, j) == 1)
         new_cell[i][j] = '-'; //cell dies
       else if (check(i,j) == 0)
-        new_cell[i][j] = 'O'; //cell is born
+        new_cell[i][j] = 'O'; //cell is 
+      else 
+        new_cell[i][j] = cell[1][j];
     }
   } 
 }
@@ -96,16 +100,17 @@ int check(int width, int height)
     for (int w = width - 1; w <= width + 1; w++)
     {
       //if cell is a surrounding cell and is alive 
-      if ((h != height && h > 0) && (w != width && w > 0) && cell[h][w] == 79)
+      if ((h != height && h > 0 && h < 50) && (w != width && w > 0 && w < 20) && cell[h][w]== 79)
         alive++;//update alive count
-
+        
+      
       //if alive count is greater than 3
       if (alive > 3)
         return 1; //cell dies
       //else if alive count is fewer than 2
       else if (alive < 2)
         return 1; //cell dies
-      else if (alive == 3)
+      else //alive count is equal to 3
         return 0; //cell is born
     }
   } 
