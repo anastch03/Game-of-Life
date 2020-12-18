@@ -52,7 +52,7 @@ int main(void) {
     
 
   //outer loop for iteration of each cycle
-  for (int i = 0; i < 100; i++) //goes for 40 generations
+  for(int i = 1; i > 0; i++) //infinite loop
   {
     print_world(); 
     update_world();
