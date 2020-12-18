@@ -9,3 +9,5 @@ Rules of game of life (from Wikipedia):
 
 To read more, click the link below:
 https://en.wikipedia.org/wiki/Conway's_Game_of_Life
+Here is a simpler explanation of Game of Life by Numberphile:
+https://www.youtube.com/watch?v=R9Plq-D1gEk

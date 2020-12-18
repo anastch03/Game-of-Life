@@ -1,22 +1,20 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
 
 void update_world(void);
-void print_world(int i);
+void print_world(void);
 int check(int width, int height);
 
 //create a 50 by 20 array which would be the "world"
-char cell[50][20]; 
-char new_cell[50][20];
+char cell[5][5]; 
+char new_cell[5][5];
 
 int main(void) {
   
   //initialize array to "-"s (dead)
-  for (int i = 0; i < 50; i++)
+  for (int i = 0; i < 5; i++)
   {
-    for (int j = 0; j < 20; j++)
+    for (int j = 0; j < 5; j++)
     {
       cell[i][j] = '-';
     }
@@ -24,49 +22,41 @@ int main(void) {
   
   //initialize configuration ie. put some life into the world 
   cell[0][1] = 'O';
-  cell[9][0] = 'O';
-  cell[0][0] = 'O';
-  cell[9][9] = 'O';
+  cell[4][0] = 'O';
   cell[1][2] = 'O';
-  cell[10][8] = 'O';
-  cell[40][12] = 'O';
-  cell[49][19] = 'O';
+  cell[1][4] = 'O';
+  cell[4][4] = 'O';
+  cell[0][2] = 'O';
 
   //outer loop for iteration of each cycle
-  for (int i = 0; i < 30; i++) //goes for 30 generations
+  for (int i = 0; i < 10; i++) //goes for 10 generations
   {
     if (i == 0)
-      print_world(0); //initial configuration
-    else
-      print_world(1); //updated configuration
+      print_world(); //initial configuration
     update_world();
     //write new cell into old cell before the new cell updates
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 5; i++)
     {
-      for (int j = 0; j < 20; j++)
+      for (int j = 0; j < 5; j++)
       {
         cell[i][j] = new_cell[i][j];
       }
     }
-    usleep(500000);
+    sleep(1);
     printf("\033[2J\033[H"); //clear terminal 
   }
-  return 0;
 }
 
 //print out the world onto terminal
-void print_world(int i)
+void print_world(void)
 {
-  for (int column = 0; column < 20; column++)
+  for (int column = 0; column < 5; column++)
   {
-    for (int row = 0; row < 50; row++)
+    for (int row = 0; row < 5; row++)
     {
-      if (row % 50 == 0)
+      if (row % 5 == 0)
         printf("\n");
-      if (i == 1)
-        printf("%c", new_cell[row][column]);
-      if (i == 0)
-        printf("%c", cell[row][column]);
+      printf("%c", cell[row][column]);
     }
   }
   printf("\n");
@@ -76,16 +66,18 @@ void print_world(int i)
 void update_world(void)
 {
   //traverse world
-  for (int i = 0; i < 50; i++)
+  for (int i = 0; i < 5; i++)
   {
-    for (int j = 0; j < 20; j++)
+    for (int j = 0; j < 5; j++)
     {
       if (check(i, j) == 1)
         new_cell[i][j] = '-'; //cell dies
-      else if (check(i,j) == 0)
-        new_cell[i][j] = 'O'; //cell is 
+      else if (check(i,j) == 0){
+        new_cell[i][j] = 'O'; //cell is born
+        printf("%c", new_cell[i][j]);
+      }
       else 
-        new_cell[i][j] = cell[1][j];
+        new_cell[i][j] = cell[i][j];
     }
   } 
 }
@@ -95,24 +87,23 @@ int check(int width, int height)
 {
   int alive = 0;
 
-  //traverse surrounding cells
+  //traverse cell's neightboring cells (including itself)
   for (int h = height - 1; h <= height + 1; h++)
   {
     for (int w = width - 1; w <= width + 1; w++)
     {
-      //if cell is a surrounding cell and is alive 
-      if ((h != height && h > 0 && h < 50) && (w != width && w > 0 && w < 20) && cell[h][w]== 79)
+      //if (h,w) is a surrounding cell, within in bounds of the grid, and is alive 
+      if (!(h == height && w == width) && h >= 0 && h < 5
+       && w >= 0 && w < 5 && cell[h][w] == 79)
         alive++;//increment alive count
     }
   } 
 
   //check conditions to determine cell
-  if (alive > 3)
+  if (alive > 3 || alive < 2)
     return 1; //cell dies
-  else if (alive < 2)
-    return 1; //cell dies
-  else //if alive count is equal to 3
+  else if (alive == 3)
     return 0; //cell is born
-  return 2;
+  return 2; //alive count = 2, nothing changes
 }
 
