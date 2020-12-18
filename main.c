@@ -22,6 +22,17 @@ int main(void) {
   }
   
   //initialize configuration ie. put some life into the world 
+  cell[1][0] = 'O';
+  cell[0][1] = 'O';
+  cell[0][2] = 'O';
+  cell[2][2] = 'O';
+  cell[3][3] = 'O';
+  cell[4][3] = 'O';
+  cell[0][14] = 'O';
+  cell[1][14] = 'O';
+  cell[2][14] = 'O';
+  cell[2][13] = 'O';
+  cell[1][12] = 'O';
   cell[24][49] = 'O';
   cell[24][50] = 'O';
   cell[24][51] = 'O';
@@ -48,6 +59,24 @@ int main(void) {
   cell[36][16] = 'O';
   cell[36][17] = 'O';
   cell[35][16] = 'O';
+  cell[0][40] = 'O';
+  cell[1][40] = 'O';
+  cell[2][40] = 'O';
+  cell[2][41] = 'O';
+  cell[1][42] = 'O';
+  cell[0][48] = 'O';
+  cell[1][46] = 'O';
+  cell[1][48] = 'O';
+  cell[1][49] = 'O';
+  cell[2][48] = 'O';
+  cell[2][46] = 'O';
+  cell[3][46] = 'O';
+  cell[4][44] = 'O';
+  cell[5][44] = 'O';
+  cell[6][42] = 'O';
+
+
+
 
     
 
