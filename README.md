@@ -1,5 +1,5 @@
 # Game of Life
-This is an implementation of John Conway's game of life simulation.
+This is John Conway's game of life simulation.
 
 Rules of game of life (from Wikipedia):
 1. Any live cell with fewer than two live neighbours dies, as if by underpopulation.
