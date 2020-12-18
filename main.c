@@ -31,8 +31,7 @@ int main(void) {
   //outer loop for iteration of each cycle
   for (int i = 0; i < 10; i++) //goes for 10 generations
   {
-    if (i == 0)
-      print_world(); //initial configuration
+    print_world(); //initial configuration
     update_world();
     //write new cell into old cell before the new cell updates
     for (int i = 0; i < 5; i++)
