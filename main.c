@@ -73,12 +73,7 @@ int main(void) {
   cell[3][46] = 'O';
   cell[4][44] = 'O';
   cell[5][44] = 'O';
-  cell[6][42] = 'O';
-
-
-
-
-    
+  cell[6][42] = 'O';  
 
   //outer loop for iteration of each cycle
   for(int i = 1; i > 0; i++) //infinite loop
