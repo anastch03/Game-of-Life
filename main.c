@@ -38,12 +38,23 @@ int main(void) {
   cell[18][17] = 'O';
   cell[17][17] = 'O';
   cell[17][19] = 'O';
+  cell[40][10] = 'O';
+  cell[40][12] = 'O';
+  cell[39][12] = 'O';
+  cell[38][14] = 'O';
+  cell[37][14] = 'O';
+  cell[37][16] = 'O';
+  cell[36][14] = 'O';
+  cell[36][16] = 'O';
+  cell[36][17] = 'O';
+  cell[35][16] = 'O';
+
     
 
   //outer loop for iteration of each cycle
-  for (int i = 0; i < 40; i++) //goes for 40 generations
+  for (int i = 0; i < 100; i++) //goes for 40 generations
   {
-    print_world(); //initial configuration
+    print_world(); 
     update_world();
     //write new cell into old cell before the new cell updates
     memcpy(cell, new_cell, sizeof(new_cell)+1);
